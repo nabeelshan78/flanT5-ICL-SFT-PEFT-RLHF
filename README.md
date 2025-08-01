@@ -17,7 +17,7 @@
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
 - [Approach & Methodology](#-approach--methodology)
-  - [1. In-Context Learning](#1-in-context-learning-zero_one_few_shots-in-contextipynb)
+  - [1. In-Context Learning](#1-in-context-learning-zero_one_few_shots_in_contextipynb)
   - [2. Full Fine-Tuning](#2-full-fine-tuning-full_fine_tuneipynb)
   - [3. Parameter-Efficient Fine-Tuning (PEFT)](#3-parameter-efficient-fine-tuning-peft-peft_fine_tuneipynb)
   - [4. Evaluation and Comparison](#4-evaluation-and-comparison-score_compareipynb)
