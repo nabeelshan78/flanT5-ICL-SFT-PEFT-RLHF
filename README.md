@@ -199,8 +199,7 @@ pip install -r requirements.txt
 
 ---
 
-
-<sub>Designed and developed to demonstrate real-world applications of Large Language Models (LLMs) through practical, hands-on implementation.</sub>
-</p>
-
+<div align="center">
+  <sub>Designed and developed to demonstrate real-world applications of Large Language Models (LLMs) through practical, hands-on implementation.</sub>
+</div>
 
