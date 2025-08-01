@@ -1,5 +1,4 @@
-# 💡 Dialogue Summarization with Advanced Fine-Tuning Techniques  
-**LLMs**  
+# 💡 Dialogue Summarization with Advanced Fine-Tuning Techniques - **LLMs**  
 
 <p align="center">
 <img src="https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python"/>
@@ -9,13 +8,17 @@
 <img src="https://img.shields.io/badge/Streamlit-App-green?style=for-the-badge&logo=streamlit"/>
 </p>
 
+<p align="center">
+<img src="assets/rouge_comparison_plot.png" alt="ROUGE Score Comparison" width="800"/>
+</p>
+
+---
+
+
 ## 📚 Table of Contents
 
+- [Project Overview](#project-overview)
 - [Key Features](#-key-features)
-- [Project Structure](#️-project-structure)
-- [Getting Started](#️-getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
 - [Approach & Methodology](#-approach--methodology)
   - [1. In-Context Learning](#1-in-context-learning-zero_one_few_shots_in-contextipynb)
   - [2. Full Fine-Tuning](#2-full-fine-tuning-full_fine_tuneipynb)
@@ -24,17 +27,22 @@
 - [Results & Analysis](#-results--analysis)
   - [ROUGE Score Comparison](#rouge-score-comparison)
   - [Performance Improvement](#performance-improvement)
-- [Contribution & Acknowledgements](#-contribution--acknowledgements)
+- [Project Structure](#️-project-structure)
+- [Getting Started](#️-getting-started)
+  - [Prerequisites](#prerequisites)
+  - [Installation](#installation)
+- [Creator & Maintainer](#-creator--maintainer)
 
+---
 
+## Project Overview
 
-<p align="center">
-<img src="assets/rouge_comparison_plot.png" alt="ROUGE Score Comparison" width="800"/>
-</p>
+This project explores and demonstrates dialogue summarization using the **FLAN-T5 Large Language Model (LLM)**. It provides a hands-on comparison of different strategies, from various prompting techniques to advanced fine-tuning methods like **Full Fine-Tuning** and **Parameter-Efficient Fine-Tuning (PEFT)** with **LoRA**.
 
-This project explores and demonstrates dialogue summarization using the FLAN-T5 Large Language Model (LLM). It provides a hands-on comparison of different strategies, including various prompting techniques and two popular fine-tuning methods: Full Fine-Tuning and Parameter-Efficient Fine-Tuning (PEFT) with LoRA.
+The primary goal is to illustrate how adapting a general-purpose LLM to a specific downstream task can dramatically improve its performance. The results highlight the trade-offs between computational cost, model size, and performance, providing a clear case study for practical LLM application development.
 
-The goal is to show how these methods improve a model's performance on a specific downstream task, moving beyond zero-shot inference to achieve higher quality, task-specific results.
+---
+
 
 ## 🚀 Key Features
 
@@ -44,6 +52,69 @@ The goal is to show how these methods improve a model's performance on a specifi
 - **Parameter-Efficient Fine-Tuning (PEFT) with LoRA**: Implements a resource-efficient fine-tuning method that significantly reduces computational cost and memory footprint by only training a small number of new parameters.  
 - **Quantitative Evaluation**: Compares the performance of the models using the ROUGE metric.  
 - **Interactive Streamlit App**: A user-friendly web application to interactively summarize dialogues using the different fine-tuned models.
+
+---
+
+## 🧠 Approach & Methodology  
+This project follows a structured approach to fine-tune the google/flan-t5-base model for dialogue summarization, leveraging the DialogSum dataset.
+
+### 1. In-Context Learning (`zero_one_few_shots_in-context.ipynb`)  
+This notebook serves as the baseline, demonstrating how the pretrained FLAN-T5 model performs on dialogue summarization without any specific training.
+
+- **Zero-Shot**: The model is given a direct instruction without any examples.  
+- **One-Shot**: A single example of a dialogue-summary pair is provided to guide the model.  
+- **Few-Shot**: Multiple examples are provided to better inform the model of the desired output style and format.
+
+### 2. Full Fine-Tuning (`full_fine_tune.ipynb`)  
+This approach updates all the parameters of the FLAN-T5 model on the entire DialogSum training dataset.
+
+- **Process**: The model's weights are adjusted through backpropagation for the dialogue summarization task.  
+- **Outcome**: This method typically yields the highest performance but is computationally expensive and requires significant memory resources.
+
+### 3. Parameter-Efficient Fine-Tuning (PEFT) (`peft_fine_tune.ipynb`)  
+This notebook implements the LoRA (Low-Rank Adaptation) technique to fine-tune the model more efficiently.
+
+- **Process**: Only a small set of new, trainable parameters (the adapter) are introduced, while the original model's weights are kept frozen.  
+- **Outcome**: Achieves performance comparable to full fine-tuning with a fraction of the computational cost and storage. This is an ideal method for fine-tuning large models on consumer-grade hardware.
+
+### 4. Evaluation and Comparison (`score_compare.ipynb`)  
+The final notebook compares the performance of all models.
+
+- **Metrics**: The ROUGE metric is used to quantitatively assess the quality of the generated summaries against human-written baselines.  
+- **Visualization**: Plots are generated to provide a clear visual comparison of ROUGE scores and the performance improvements of fine-tuned models over the original model.
+
+
+---
+
+
+## 📊 Results & Analysis  
+The project demonstrates a clear and measurable performance improvement from fine-tuning.
+
+### ROUGE Score Comparison  
+
+| Model            | ROUGE-1 | ROUGE-2 | ROUGE-L | ROUGE-Lsum |
+|------------------|---------|---------|----------|-------------|
+| Original Model   | 0.233   | 0.076   | 0.201    | 0.201       |
+| Full Fine-Tuned  | 0.422   | 0.180   | 0.338    | 0.338       |
+| PEFT (LoRA)      | 0.408   | 0.163   | 0.325    | 0.325       |
+
+**Observation:** Both fine-tuned models show a significant increase in all ROUGE metrics compared to the base model.  
+**Conclusion:** Fine-tuning on a specific task greatly enhances a model's ability to perform that task accurately.
+
+<p align="center"> <img src="assets/rouge_improvement_comparison.png" alt="ROUGE Improvement Comparison" width="800"/> </p>
+
+---
+
+### Performance Improvement  
+
+| Improvement Over...      | ROUGE-1 (Abs. %) | ROUGE-2 (Abs. %) | ROUGE-L (Abs. %) | ROUGE-Lsum (Abs. %) |
+|--------------------------|------------------|------------------|------------------|----------------------|
+| Full FT vs. Original     | +18.86%          | +10.41%          | +13.70%          | +13.69%              |
+| PEFT vs. Original        | +17.47%          | +8.73%           | +12.36%          | +12.34%              |
+
+**Observation:** The PEFT model achieves a performance very close to the fully fine-tuned model, with only a small decrease in metrics.  
+**Conclusion:** PEFT is an exceptionally effective and efficient alternative to full fine-tuning, making it a viable solution for adapting large models with limited resources.
+
 
 ---
 
@@ -112,80 +183,23 @@ pip install -r requirements.txt
 ---
 
 
-## 🧠 Approach & Methodology  
-This project follows a structured approach to fine-tune the google/flan-t5-base model for dialogue summarization, leveraging the DialogSum dataset.
+## 👨‍💻 Creator & Maintainer
 
-### 1. In-Context Learning (`zero_one_few_shots_in-context.ipynb`)  
-This notebook serves as the baseline, demonstrating how the pretrained FLAN-T5 model performs on dialogue summarization without any specific training.
+**Nabeel Shan**  
+*Software Engineering Student @ NUST Islamabad, Pakistan*  
+*Aspiring AI/ML Engineer | Deep Learning & NLP Practitioner*
 
-- **Zero-Shot**: The model is given a direct instruction without any examples.  
-- **One-Shot**: A single example of a dialogue-summary pair is provided to guide the model.  
-- **Few-Shot**: Multiple examples are provided to better inform the model of the desired output style and format.
+- Currently specializing in Sequence Models — including RNNs, LSTMs, Attention Mechanisms — and building real-world applications such as Neural Machine Translation (NMT) and LLM-based summarization.
+- Passionate about research in AI/ML, open-source contributions, and exploring cutting-edge advancements in Generative AI and NLP.
+- Actively seeking meaningful collaborations on projects related to LLMs, PEFT, NLP pipelines, and Machine Learning Engineering.
 
-### 2. Full Fine-Tuning (`full_fine_tune.ipynb`)  
-This approach updates all the parameters of the FLAN-T5 model on the entire DialogSum training dataset.
-
-- **Process**: The model's weights are adjusted through backpropagation for the dialogue summarization task.  
-- **Outcome**: This method typically yields the highest performance but is computationally expensive and requires significant memory resources.
-
-### 3. Parameter-Efficient Fine-Tuning (PEFT) (`peft_fine_tune.ipynb`)  
-This notebook implements the LoRA (Low-Rank Adaptation) technique to fine-tune the model more efficiently.
-
-- **Process**: Only a small set of new, trainable parameters (the adapter) are introduced, while the original model's weights are kept frozen.  
-- **Outcome**: Achieves performance comparable to full fine-tuning with a fraction of the computational cost and storage. This is an ideal method for fine-tuning large models on consumer-grade hardware.
-
-### 4. Evaluation and Comparison (`score_compare.ipynb`)  
-The final notebook compares the performance of all models.
-
-- **Metrics**: The ROUGE metric is used to quantitatively assess the quality of the generated summaries against human-written baselines.  
-- **Visualization**: Plots are generated to provide a clear visual comparison of ROUGE scores and the performance improvements of fine-tuned models over the original model.
-
+**Connect with me:**
+- [LinkedIn](https://www.linkedin.com/in/nabeelshan)
+- [GitHub](https://github.com/nabeelshan78)
 
 ---
 
 
-## 📊 Results & Analysis  
-The project demonstrates a clear and measurable performance improvement from fine-tuning.
-
-### ROUGE Score Comparison  
-
-| Model            | ROUGE-1 | ROUGE-2 | ROUGE-L | ROUGE-Lsum |
-|------------------|---------|---------|----------|-------------|
-| Original Model   | 0.233   | 0.076   | 0.201    | 0.201       |
-| Full Fine-Tuned  | 0.422   | 0.180   | 0.338    | 0.338       |
-| PEFT (LoRA)      | 0.408   | 0.163   | 0.325    | 0.325       |
-
-**Observation:** Both fine-tuned models show a significant increase in all ROUGE metrics compared to the base model.  
-**Conclusion:** Fine-tuning on a specific task greatly enhances a model's ability to perform that task accurately.
-
-<p align="center"> <img src="assets/rouge_improvement_comparison.png" alt="ROUGE Improvement Comparison" width="800"/> </p>
-
----
-
-### Performance Improvement  
-
-| Improvement Over...      | ROUGE-1 (Abs. %) | ROUGE-2 (Abs. %) | ROUGE-L (Abs. %) | ROUGE-Lsum (Abs. %) |
-|--------------------------|------------------|------------------|------------------|----------------------|
-| Full FT vs. Original     | +18.86%          | +10.41%          | +13.70%          | +13.69%              |
-| PEFT vs. Original        | +17.47%          | +8.73%           | +12.36%          | +12.34%              |
-
-**Observation:** The PEFT model achieves a performance very close to the fully fine-tuned model, with only a small decrease in metrics.  
-**Conclusion:** PEFT is an exceptionally effective and efficient alternative to full fine-tuning, making it a viable solution for adapting large models with limited resources.
-
-
----
-
-## 🤝 Contribution & Acknowledgements  
-
-This project was developed by [Nabeel Shan].
-
-It leverages the excellent Hugging Face Transformers and PEFT libraries.
-
-The project builds upon concepts and methodologies from various online resources, including the DeepLearning.AI Short Courses.
-
-Feel free to open issues or submit pull requests for any improvements or new features.
-
-<p align="center">
 <sub>Designed and developed to demonstrate real-world applications of Large Language Models (LLMs) through practical, hands-on implementation.</sub>
 </p>
 
