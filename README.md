@@ -1,4 +1,4 @@
-# 💡 Dialogue Summarization with Advanced Fine-Tuning Techniques - **LLMs**  
+# **Efficient LLM Adaptation: Advanced Fine-Tuning for Dialogue Summarization**
 
 [![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://flant5-summarization-fine-tuning-6qnyjwz6lbdt6rdcpvugys.streamlit.app/)
 
