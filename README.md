@@ -100,24 +100,24 @@ The project includes an interactive Streamlit application to demonstrate the dif
 </p>
 
 ### Comparison of Model Outputs
-Using the "Meeting Agenda Discussion" example dialogue, we can see the subtle but important differences in the generated summaries.
+Using the "Meeting Agenda Discussion" as an example, observe how the quality and conciseness of the summaries improve with each fine-tuning strategy.
 
 <p align="center">
-  <img src="assets/base_results_ex.png" alt="Base FLAN-T5 Model Output" width="800"/>
-  <br>
-  <sub>*Summary from the **Base FLAN-T5 (Pretrained)** model. It's coherent but a bit verbose, listing all the topics and participants.*</sub>
+<img src="assets/base_results_ex.png" alt="Base FLAN-T5 Model Output" width="800"/>
+<br>
+<sub>Summary from the Base FLAN-T5 (Pretrained) model. It contains some factual errors (listing Nabeel twice) and is repetitive, demonstrating its lack of task-specific understanding.</sub>
 </p>
 
 <p align="center">
-  <img src="assets/peft_ft_results_ex.png" alt="PEFT Fine-Tuned (LoRA) Model Output" width="800"/>
-  <br>
-  <sub>*Summary from the **PEFT Fine-Tuned (LoRA)** model. The summary is more concise and captures the key details, showing a significant improvement in summarization quality.*</sub>
+<img src="assets/peft_ft_results_ex.png" alt="PEFT Fine-Tuned (LoRA) Model Output" width="800"/>
+<br>
+<sub>Summary from the PEFT Fine-Tuned (LoRA) model. This summary is significantly more accurate and concise. It correctly identifies the key actions and topics, showing how a small number of fine-tuned parameters can dramatically improve performance.</sub>
 </p>
 
 <p align="center">
-  <img src="assets/full_ft_results_ex.png" alt="Full Fine-Tuned Model Output" width="800"/>
-  <br>
-  <sub>*Summary from the **Full Fine-Tuned** model. This output is the most succinct and effective, demonstrating the highest level of task-specific performance.*</sub>
+<img src="assets/full_ft_results_ex.png" alt="Full Fine-Tuned Model Output" width="800"/>
+<br>
+<sub>Summary from the Full Fine-Tuned model. This output is the most succinct and effective. It captures the core meeting agenda and the next steps with the highest level of clarity, validating the high ROUGE scores from the full fine-tuning approach.</sub>
 </p>
 
 ---
