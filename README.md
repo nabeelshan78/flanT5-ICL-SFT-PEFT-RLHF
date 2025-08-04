@@ -61,9 +61,9 @@ This repository serves as both a practical guide and a showcase of building a ro
 
 - **Dialogue Summarization**: Leverages the FLAN-T5 base model to generate concise summaries of conversations.
 - **Prompt Engineering**: Systematically explores zero-shot, one-shot, and few-shot inference.
-- **Full Fine-Tuning**: Adapts all 247M parameters of FLAN-T5 for the summarization task.
+- **Full Fine-Tuning**: Adapts all 247.5+M parameters of FLAN-T5 for the summarization task.
 - **Parameter-Efficient Fine-Tuning (PEFT)**: Implements **Low-Rank Adaptation (LoRA)** to fine-tune the model with over 98% fewer trainable parameters, drastically reducing compute and memory needs.
-- **Reinforcement Learning (RLHF)**: Uses **Proximal Policy Optimization (PPO)** and a reward model to fine-tune the LLM for a secondary objective—toxicity reduction—demonstrating advanced model alignment techniques.
+- **Reinforcement Learning (RLHF)**: Uses **Proximal Policy Optimization (PPO)** and a reward model to fine-tune the LLM for a secondary objective-toxicity reduction-demonstrating advanced model alignment techniques.
 - **Quantitative & Qualitative Evaluation**: Employs the **ROUGE** metric for summarization quality and a **RoBERTa-based hate speech classifier** for toxicity scoring.
 - **Interactive Streamlit App**: A user-friendly web application to interactively test and compare the outputs of the different fine-tuned models.
 
@@ -83,12 +83,13 @@ This phase adapts the model to the dialogue summarization task using direct supe
 
 #### A. Full Fine-Tuning
 * **Notebook**: `notebooks/full_fine_tune.ipynb`
-* **Method**: All **247 million parameters** of the model are updated on the DialogSum dataset.
+* **Method**: All **247.5+ million parameters** of the model are updated on the DialogSum dataset.
 * **Outcome**: This approach yields a significant performance boost, achieving high ROUGE scores. However, it is computationally intensive and memory-demanding, creating a large model checkpoint.
 
 #### B. Parameter-Efficient Fine-Tuning (PEFT) with LoRA
 * **Notebook**: `notebooks/peft_fine_tune.ipynb`
-* **Method**: We freeze the base model and inject small, trainable **Low-Rank Adaptation (LoRA)** matrices into the attention layers. This reduces the number of trainable parameters by over **98%** (from 247M to just 3.5M).
+* **Method**: We freeze the base model and inject small, trainable **Low-Rank Adaptation (LoRA)** matrices into the attention layers. This reduces the number of trainable parameters by over **98%** (from 247.5+M to just 3.5M).
+
 ```python
 # LoRA Configuration
 from peft import LoraConfig, TaskType
@@ -122,11 +123,6 @@ lora_config = LoraConfig(
 # PPO Trainer Configuration
 from trl import PPOTrainer, PPOConfig
 
-config = PPOConfig(
-    model_name='google/flan-t5-base',
-    learning_rate=1.41e-5,
-    ppo_epochs=1,
-)
 ppo_trainer = PPOTrainer(config=config, model=ppo_model, ref_model=ref_model, ...)
 
 ```
@@ -195,9 +191,9 @@ Toxicity is scored on a scale from 0 to 1, where a lower score is better.
 ### Qualitative Example:  
 The RLHF-tuned model learns to rephrase summaries to be less confrontational and more neutral, as reflected by the higher reward (lower toxicity).
 
-| Dialogue | Response (Before RLHF) | Reward (Before) | Response (After RLHF) | Reward (After) |
-|----------|-------------------------|------------------|------------------------|----------------|
-| #Person1#: Get away from me! You have chicken pox! You are contagious! Don't breathe on me! | #Person1# thinks #Person2# has chicken pox and tells #Person2# to get away because it is a biohazard. | -0.83 | #Person2# has chicken pox. #Person1# tells #Person2# to take a bath and not to breathe on #Person1#. | — |
+| Response (Before RLHF) | Response (After RLHF) |
+|-------------------------|------------------------|
+| #Person1# thinks #Person2# has chicken pox and tells #Person2# to get away because it is a biohazard. | #Person2# has chicken pox. #Person1# tells #Person2# to take a bath and not to breathe on #Person1#. |
 
 ---
 
@@ -250,26 +246,16 @@ An interactive Streamlit application is available to demonstrate the differences
 
 **Reward Model as a Proxy:** The RoBERTa hate speech classifier is a good proxy but doesn't capture all nuances of toxicity or human preference.
 
-**Evaluation Sample Size:** The quantitative evaluation for toxicity was performed on a subset of the test data to manage computational cost. A more extensive evaluation would provide higher confidence.
-
-**ROUGE Metric Limitations:** ROUGE measures lexical overlap and may not fully capture the semantic quality or factuality of a summary.
-
 ### Future Directions:
 
 - **Train a Custom Reward Model:** Collect human preference data (e.g., comparing two summaries and choosing the better one) to train a more robust reward model.
-
-- **Explore Direct Preference Optimization (DPO):** Implement DPO, a newer, more stable alternative to PPO for RLHF that doesn't require an explicit reward model.
-
-- **Integrate RLHF Model into Streamlit App:** Add the final PPO-tuned model to the interactive demo to allow for qualitative comparison of its safety features.
-
-- **Quantify the Trade-off:** Measure the ROUGE score of the PPO-tuned model to precisely quantify the impact of toxicity reduction on summarization performance.
 
 
 ---
 
 ### 🛠️ Project Structure
 ```bash
-flanT5-summarization-fine-tuning/
+flanT5-SFT-PEFT-RLHF/
 ├── app/
 │   ├── app.py                      # Streamlit web application
 │   └── utils.py                    # Helper functions for the app
@@ -307,8 +293,8 @@ flanT5-summarization-fine-tuning/
 1. Clone the repository:
 
 ```bash
-git clone [https://github.com/YOUR_USERNAME/flanT5.git](https://github.com/YOUR_USERNAME/flanT5.git)
-cd flanT5
+git clone https://github.com/nabeelshan78/flanT5-SFT-PEFT-RLHF.git
+cd flanT5-SFT-PEFT-RLHF
 ```
 
 2. Create and activate a virtual environment (recommended):
@@ -346,7 +332,7 @@ The notebooks are numbered to guide you through the project's phases. It is reco
 Software Engineering Student @ NUST Islamabad, Pakistan  
 Aspiring AI/ML Engineer | Deep Learning & NLP Practitioner
 
-Currently specializing in Sequence Models — including RNNs, LSTMs, Attention Mechanisms — and building real-world applications such as Neural Machine Translation (NMT) and LLM-based summarization.
+Currently specializing in Sequence Models - including RNNs, LSTMs, Attention Mechanisms — and building real-world applications such as Neural Machine Translation (NMT) and LLM-based summarization.
 
 Passionate about research in AI/ML, open-source contributions, and exploring cutting-edge advancements in Generative AI and NLP.
 
