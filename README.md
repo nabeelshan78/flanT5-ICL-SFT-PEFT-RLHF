@@ -33,7 +33,7 @@
   - [Behavioral Alignment (Toxicity Reduction)](#behavioral-alignment-toxicity-reduction)
 - [Interactive Demo](#interactive-demo)
 - [Technical Deep Dive & Learnings](#-technical-deep-dive--learnings)
-- [Limitations & Future Work](#-limitations--future-work)
+- [Limitations & Future Work](#limitations--future-work)
 - [Project Structure](#️-project-structure)
 - [Getting Started](#️-getting-started)
   - [Prerequisites](#prerequisites)
