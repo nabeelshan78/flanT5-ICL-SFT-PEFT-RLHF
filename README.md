@@ -255,7 +255,7 @@ An interactive Streamlit application is available to demonstrate the differences
 
 ### 🛠️ Project Structure
 ```bash
-flanT5-SFT-PEFT-RLHF/
+flanT5-ICL-SFT-PEFT-RLHF/
 ├── app/
 │   ├── app.py                      # Streamlit web application
 │   └── utils.py                    # Helper functions for the app
@@ -293,8 +293,8 @@ flanT5-SFT-PEFT-RLHF/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/nabeelshan78/flanT5-SFT-PEFT-RLHF.git
-cd flanT5-SFT-PEFT-RLHF
+git clone https://github.com/nabeelshan78/flanT5-ICL-SFT-PEFT-RLHF.git
+cd flanT5-ICL-SFT-PEFT-RLHF
 ```
 
 2. Create and activate a virtual environment (recommended):
