@@ -1,6 +1,6 @@
 # Advanced LLM Adaptation: From Supervised Fine-Tuning to Reinforcement Learning for Dialogue Summarization
 
-[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://flant5-summarization-fine-tuning-6qnyjwz6lbdt6rdcpvugys.streamlit.app/)
+[![Open in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://flant5-icl-sft-peft-rlhf-8rx4znwnt8g9yjctbawwve.streamlit.app/)
 
 <p align="center">
 <img src="https://img.shields.io/badge/Python-3.8+-blue?style=for-the-badge&logo=python"/>
@@ -31,7 +31,7 @@
 - [Results & Analysis](#-results--analysis)
   - [Summarization Performance (ROUGE Scores)](#summarization-performance-rouge-scores)
   - [Behavioral Alignment (Toxicity Reduction)](#behavioral-alignment-toxicity-reduction)
-- [Interactive Demo](#-interactive-demo)
+- [Interactive Demo](#interactive-demo)
 - [Technical Deep Dive & Learnings](#-technical-deep-dive--learnings)
 - [Limitations & Future Work](#-limitations--future-work)
 - [Project Structure](#️-project-structure)
@@ -197,7 +197,7 @@ The RLHF-tuned model learns to rephrase summaries to be less confrontational and
 
 ---
 
-## 🖥️ Interactive Demo
+### Interactive Demo
 
 An interactive Streamlit application is available to demonstrate the differences between the fine-tuning strategies. You can input your own dialogue or use the examples to see how the summary quality evolves from the base model to the fully fine-tuned one.
 
@@ -242,7 +242,7 @@ An interactive Streamlit application is available to demonstrate the differences
 
 ---
 
-## Limitations & Future Work
+### Limitations & Future Work
 
 **Reward Model as a Proxy:** The RoBERTa hate speech classifier is a good proxy but doesn't capture all nuances of toxicity or human preference.
 
